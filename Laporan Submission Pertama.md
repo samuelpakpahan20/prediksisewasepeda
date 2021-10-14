@@ -91,7 +91,7 @@ print("Hasil Mean Squared Error menggunakan Linear Regression : ", mse)
 ```
 Maka kita dapatkan hasil prediksinya sebagai berikut.
 
-![Hasil MSE Linear](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseLinear.JPG)
+![Hasil MSE Linear](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/prediksilinear.JPG)
 
 ### Decision Tree
 Dari hasil prediksi linear regression diatas, dapat kita ketahui bahwa nilai error masih sangat tinggi yang berarti algoritma linear regression tidak berjalan dengan baik karena tidak dapat secara akurat memodelkan beberapa fitur non-linear yang ada di dataset. Ini mungkin karena fakta bahwa ada beberapa jumlah sewa yang sangat tinggi.
@@ -119,7 +119,7 @@ for each in decision_tree_mse:
 ```
 Hasilnya adalah sebagai berikut:
 
-![Hasil MSE Decision Tree](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/)
+![Hasil MSE Decision Tree](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/prediksidt.png)
 
 Algoritma Decision Tree tampaknya memiliki akurasi yang jauh lebih rendah dibandingkan Algoritma Linear Regression. Nilai erorr tampaknya diminimalkan dengan mengatur parameter `min_samples_leaf` ke angka 9 hingga 11. MSE terendah yang kita lihat adalah sekitar 2450, ketika menggunakan 10 minimum leafs.
 
@@ -128,7 +128,7 @@ Hal ini kemungkinan karena memperhitungkan fitur-fitur yang non-linear, seperti 
 ### Random Forest
 *Note : Untuk melihat penerapan kodenya dapat dilihat pada Bab Evaluasi
 
-![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/)
+![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/prediksirf.png)
 
 Dari perbandingan hasil MSE ini, dapat disimpulkan bahwa **Algoritma Random Forest menciptakan model dengan akurasi prediksi terbaik**. Algoritma Random Forest mengembalikan MSE hanya 1605, turun dari 2450 menggunakan algoritma Decision Tree, dan 15709 menggunakan algoritma Linear Regression.
 
@@ -193,7 +193,7 @@ random_forest_mse
 ```
 Hasilnya seperti berikut.
 
-![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/)
+![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/prediksirf.png)
 
 Selanjutnya, kita akan tentukan di mana MSE terendahnya. Tuliskan kode berikut.
 ```
@@ -202,7 +202,7 @@ print(random_forest_mse.loc[[a], [b]])
 ```
 Maka MSE terendahnya sebagai berikut.
 
-![MSE Terendah](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/)
+![MSE Terendah](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/rfterendah.JPG)
 
 Dari hasil diatas, dapat kita ketahui bahwa MSE yang relatif rendah adalah 1605 dan diamati ketika parameter `min_samples_leaf`= 1, dan parameter `max_depth`= 23.
 
