@@ -1,90 +1,150 @@
 # Laporan Proyek Machine Learning - Samuel Partogi Pakpahan
 
 ## Domain Proyek
-Pada proyek ini saya menggunakan domain Ekonomi dan bisnis. Seperti yang kita ketahui organisasi bisnis seperti real estate, perusahaan mobil, dan bisnis penjualan daring perlu terus-menerus menyesuaikan harga mereka untuk memaksimalkan keuntungan. Perusahaan harus bisa meningkatkan atau mempertahankan pendapatan dan profit meski menghadapi situasi yang sulit. Situasi sulit ini bisa disebabkan oleh berbagai faktor, antara lain perubahan musim, pergeseran permintaan pelanggan, dan terjadinya kejadian khusus seperti pandemi.
+Sistem rental sepeda adalah generasi baru penyewaan sepeda tradisional di mana seluruh proses mulai dari keanggotaan, penyewaan, dan pengembalian menjadi otomatis. Melalui sistem ini, pengguna dapat dengan mudah menyewa sepeda dari posisi tertentu dan kembali lagi di posisi lain. Saat ini, ada minat besar dalam sistem ini karena peran penting mereka dalam masalah lalu lintas, lingkungan dan kesehatan.
 
-Model predictive analytics dapat dilatih untuk memprediksi harga optimal berdasarkan data atau catatan historis penjualan. Perusahaan dapat menggunakan prediksi ini sebagai masukan untuk menentukan berbagai keputusan bisnis, misalnya strategi penetapan harga.
-
-Merujuk pada penelitian [berikut](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3702236), India memiliki salah satu pasar mobil terbesar di seluruh dunia setiap hari banyak pembeli biasanya menjual mobil mereka setelah digunakan pembeli lain (mobil bekas). Banyak juga platform seperti cars24.com, cardekho.com dan OLX.com sebagai media bagi pembeli untuk menjual mobil bekas mereka, tetapi berapa harga mobil baru yang seharusnya? Ini adalah pertanyaan terberat yang pernah ada. Algoritma Machine Learning dapat memberikan solusi untuk masalah ini. Menggunakan riwayat data penjualan mobil, kita dapat memprediksi harga mobil yang wajar.
-
+Menurut artikel [ini](https://ddot.dc.gov/page/capital-bikeshare), banyak kota di Amerika memiliki lebih dari 500 stasiun rental sepeda di seluruh wilayahnya termasuk Washington, D.C., dan terdiri dari lebih dari 500 ribu sepeda.
 
 ## Business Understanding
-Seiring dengan tingginya aktivitas dan bisnis, mobil sudah menjadi kebutuhan pokok. Disisi lain, harga mobil baru semakin tinggi dengan berbagai *feature* yang disematkan pada produk baru. Untuk memenuhi kesenjangan tersebut, masyarakat mencari alternatif untuk membeli mobil bekas yang kondisi masih baik dan layak digunakan. Tingginya minat masyarakat terhadap mobil bekas membuat profit perusahaan mobil semakin menurun, hal ini ditandai dengan banyaknya *showroom* mobil bekas. Tak luput diantara *showroom* sangat kompetitif bersaing agar tetap eksis dalam bisnis mobil bekas. Salah satu masalah yang dihadapi semua perusahaan mobil adalah menentukan harga secara cepat dan akurat sehingga perusahaan bisa mendapatkan profit sebesar mungkin. Berdasarkan penelitian yang saya sebutkan sebelumnya, kondisi saat ini prediksi harga mobil pun masih popular. Berbagai *showroom* maupun perusahaan mobil saling bersaing harga untuk mendapatkan pelanggan.
+Terlepas dari aplikasi dunia nyata yang menarik dari sistem rental sepeda, karakteristik data yang dihasilkan oleh sistem ini membuatnya menarik untuk penelitian. Berlawanan dengan layanan transportasi lain seperti bus atau kereta bawah tanah, durasi perjalanan, posisi keberangkatan dan kedatangan dicatat secara eksplisit dalam sistem ini. Fitur ini mengubah sistem rental sepeda menjadi jaringan sensor virtual yang dapat digunakan untuk merasakan mobilitas di dalam kota. Oleh karena itu, diharapkan sebagian besar peristiwa penting di kota dapat dideteksi melalui pemantauan data ini. 
 
 ### Problem Statements
-Berdasarkan kondisi diatas, saya akan mengembangkan sebuah sistem prediksi harga mobil untuk menjawab permasalahan berikut.
-
-- Dari serangkaian fitur yang ada, fitur apa yang paling berpengaruh terhadap harga mobil?
-- Berapa harga pasar mobil dengan karakteristik atau fitur tertentu?  
+Berdasarkan kondisi diatas, saya akan mengembangkan sebuah model prediksi jumlah sepeda untuk menjawab permasalahan berikut.
+- Berapa jumlah sepeda yang disewa pada jam tertentu?
 
 ### Goals
-Untuk  menjawab pertanyaan tersebut, saya membuat predictive modelling dengan tujuan atau goals sebagai berikut:
-
-- Menentukan fitur mana yang terbaik (berkorelasi) untuk digunakan memprediksi harga mobil.
-- Membuat model machine learning yang dapat memprediksi harga mobil seakurat mungkin berdasarkan fitur-fitur terbaik yang ada.
+Untuk  menjawab pertanyaan tersebut, saya membuat predictive modelling dengan tujuan atau goals, yaitu membuat model machine learning yang dapat memprediksi jumlah sepeda berdasarkan fitur-fitur terbaik yang ada.
 
 ### Solution statements
-Pada proyek ini saya menggunakan algoritma K-Nearest Neighbor (KNN). KNN adalah algoritma yang relatif sederhana dibandingkan dengan algoritma lain, karena algoritma KNN menggunakan ‘kesamaan fitur’ untuk memprediksi nilai dari setiap data yang baru. Dengan kata lain, setiap data baru diberi nilai berdasarkan seberapa mirip titik tersebut dalam set pelatihan.
-
-KNN bekerja dengan membandingkan jarak satu sampel ke sampel pelatihan lain dengan memilih sejumlah k-tetangga terdekat. Oleh sebab itu, mengapa algoritma ini dinamakan K-nearest neighbor (sejumlah k tetangga terdekat).
-
-Meskipun algoritma KNN mudah dipahami dan digunakan, ia memiliki kekurangan jika dihadapkan pada jumlah fitur atau dimensi yang besar. Permasalahan ini sering disebut sebagai *curse of dimensionality* (kutukan dimensi). Pada dasarnya, permasalahan ini muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan jumlah dimensi (fitur) pada data. Jadi, jika menggunakan model KNN, pastikan data yang digunakan memiliki fitur yang relatif sedikit.
+Untuk membuat model machine learning seperti yang disebutkan diatas, saya menggunakan berbagai algoritma seperti Linear Regression, Decision Trer, dan Random Forest, untuk melihat hasil prediksi mana yang terbaik dan mengembalikan nilai error terendah.
+- **Liniear Regression**, algoritma ini cocok dipakai ketika terdapat hubungan linear pada data. Namun untuk implementasi pada kebanyakan kasus, ia kurang direkomendasikan. Sebabnya, regresi linier selalu mengasumsikan ada hubungan linier pada data, padahal tidak.
+- **Decision Tree**, algoritma ini memprediksi sebuah kelas (klasifikasi) atau nilai (regresi) berdasarkan aturan-aturan yang dibentuk setelah mempelajari data.
+- **Random Forest**, algoritma ini termasuk ke dalam kelompok model ensemble (group). Model ensemble merupakan model prediksi yang terdiri dari beberapa model dan bekerja secara bersama-sama. Ide dibalik model ensemble adalah sekelompok model yang bekerja bersama menyelesaikan masalah. Sehingga, tingkat keberhasilan akan lebih tinggi dibanding model yang bekerja sendirian. Pada model ensemble, setiap model harus membuat prediksi secara independen. Kemudian, prediksi dari setiap model ensemble ini digabungkan untuk membuat prediksi akhir. 
 
 ## Data Understanding
-Dataset yang saya gunakan adalah [Automobile Data Set](https://archive.ics.uci.edu/ml/datasets/automobile). Dataset ini terdiri dari tiga jenis entitas: 
-1. Spesifikasi mobil dalam hal berbagai karakteristik, 
-2. Peringkat risiko asuransi yang ditetapkan, 
-3. Kerugian yang dinormalisasi dalam penggunaan dibandingkan dengan mobil lain.  
+Dataset yang saya gunakan adalah [Bike Sharing Dataset](http://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset#). Seperti yang saya sebutkan sebelumnya, banyak kota di Amerika, termasuk Washington, D.C., memiliki stasiun rental sepeda. Distrik mereka membuat dataset ini dengan mengumpulkan data jumlah sepeda yang disewa orang, per jam dan hari.
 
-Variabel-variabel pada Automobile Data Set adalah sebagai berikut:
-- symboling : sombolisasi peringkat sejauh mana mobil berisiko. Nilai +3 menunjukkan bahwa mobil itu berisiko, -3 bahwa itu mungkin cukup aman.
-- normalized-losses : Perbandingan kerugian pemakaian dengan mobil lain.
-- make : nama perusahaan pembuat mobil
-- fuel-type : jenis bahan bakar.
-- num-of-doors : jumlah pintu
-- body-style : jenis body mobil
-- drive-wheels : jenis sistem penggerak ban mobil
-- engine-location : lokasi mesin
-- wheel-base : dimensi jarak sumbu roda
-- length : panjang mobil
-- width : lebar mobil
-- height : tinggi mobil
-- curb-weight : massa total mobil
-- engine-type : jenis mesin
-- num-of-cylinders : jumlah silinder mobil
-- engine-size : ukuran mesin
-- fuel-system : sistem bahan bakar
-- bore : diameter silinder atau isi liner blok mesin
-- stroke : jarak piston yang bergerak maju-mundur dalam blok mesin
-- compression-ratio : nilai yang mewakili rasio volume ruang pembakaran dari kapasitas terbesar ke kapasitas terkecil.
--  horsepower : sebagai satuan daya yang setara dengan tenaga kuda
--  price: harga mobil
+Variabel-variabel pada Bike Sharing Dataset adalah sebagai berikut:
+- `instant` : ID Unik sepeda
+- `dteday` : tanggal sewa
+- `season` : musim penyewaan terjadi
+- `yr` : tahun penyewaan terjadi
+- `mnth` : bulan penyewaan terjadi
+- `hr` : jam penyewaan terjadi
+- `holiday` : apakah hari itu hari libur atau tidak
+- `weekday` : hari dalam seminggu (sebagai angka, 0 hingga 7)
+- `workingday` : apakah hari itu adalah hari kerja atau tidak
+- `weathersit` : cuaca
+- `temp` : suhu
+- `atemp` : suhu yang disesuaikan
+- `hum` : kelembapan
+- `windspeed` : kecepatan angin
+- `casual` : jumlah pengendara biasa (non-membership)
+- `registered` : jumlah pengendara membership
+- `cnt` : jumlah total persewaan sepeda (casual + registered)
 
 ## Data Preparation
 Sebelum digunakan, Dataset melewati beberapa proses seperti berikut:
-1. Inisialisasi variabel (kolom) secara manual, karena dataset asli tidak disertakan.
-2. Mengubah kolom bertipe data `objek` menjadi `numeric`, hal ini dilakukan karena ada beberapa kolom yang bernilai numerik menggunakan tipe data `object` sehingga nilai dari kolom tidak dapat di proses. Kemudian ada beberapa kolom yang penulisan nilainya diubah ke dalam angka (numerik).
-4. Menggunakan metode `df.replace()` untuk mmengisi nilai yang hilang, lalu melakukan teknik drop terhadap data yang hilang, menggantinya dengan mean. Hal ini dilakukan agar data valid dan dapat digunakan.
-6. Melakukan teknik normalisasi pada kolom numerik sehingga semua nilai hanya bernilai dari 0 hingga 1, kecuali kolom `price`
+1. Menggunakan metode `corr` pada dataset untuk melihat bagaimana setiap kolom berkorelasi dengan kolom `cnt`.
+2. Membuat sebuah fungsi, `assign_label`, yang membangun kolom baru `time_label` yang berdasarkan nilai di kolom `hr`. Dimana, fungsi ini juga akan membuat label [`morning`, `afternoon`, `evening`, `night`] untuk mewakili periode waktu tertentu.
+3. Membagi dataset menjadi 80% train set, dan sisanya ke test set.
 
 
 ## Modeling
-### Model Univariate dan Multivariate
-Model Univariate awalnya digunakan untuk menentukan fitur terbaik untuk pemodelan. Hal ini dilakukan dengan memvariasikan hyperparameter nilai k (n_neighbors) pada fungsi KNeighborsRegressor.
+### Linear Regression
+Sebelum melakukan pemodelan kita harus menentukan fitur terbaiknya terlebih dahulu. Tuliskan kode berikut.
+```
+column_names = bike_rentals.columns.tolist()
 
-![Visualisasi Model Univariate](https://raw.githubusercontent.com/samuelpakpahan20/prediksihargamobil/master/images/Univariate.png)
-Setelah fitur terbaik di dapatkan, selanjutnya dilakukan pemodelan multivariate menggunakan 3, 4, dan 5 fitur terbaik, dengan parameter nilai k bervariasi dari 1-25.
+# Menghapus kolom yang tidak kita pakai sebagai fitur
+column_names.remove("cnt")
+column_names.remove("registered")
+column_names.remove("casual")
+column_names.remove("dteday")
 
-![Visualisasi Model Multivariate](https://raw.githubusercontent.com/samuelpakpahan20/prediksihargamobil/master/images/Multivariate.png)
+features = column_names
 
-Dari perbandingan grafik ini, dapat disimpulkan bahwa:
-1. **Model Predictive harus dilakukan menggunakan 4 atau 5 fitur terbaik** (5 hal yang perlu diperhatikan dalam memprediksi harga pasar mobil, yaitu `engine-size`, `width`, `horsepower`, `highway-mpg`, `curb-weight`)
-2. **Nilai k yang <= 3** harus digunakan untuk meminimalkan nilai RMSE.
+features
+```
+Hasilnya seperti berikut.
+
+![Fitur](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/fitur.JPG)
+
+Setelah fiturnya di dapatkan, kita akan proses dengan linear regression. Masukkan kode berikut:
+```
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Membuat Instance Model
+lr = LinearRegression()
+
+# Melatih Model
+lr.fit(train[features], train['cnt'])
+
+# Menguji Model
+predictions = lr.predict(test[features])
+
+# Menghitung error
+mse = mean_squared_error(test['cnt'], predictions)
+
+print("Hasil Mean Squared Error menggunakan Linear Regression : ", mse)
+```
+Maka kita dapatkan hasil prediksinya sebagai berikut.
+
+![Hasil MSE Linear](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseLinear.JPG)
+
+### Decision Tree
+Dari hasil prediksi linear regression diatas, dapat kita ketahui bahwa nilai error masih sangat tinggi yang berarti algoritma linear regression tidak berjalan dengan baik karena tidak dapat secara akurat memodelkan beberapa fitur non-linear yang ada di dataset. Ini mungkin karena fakta bahwa ada beberapa jumlah sewa yang sangat tinggi.
+
+Kita akan mencoba menggunakan algoritma Decision Tree. Gunakan kode berikut.
+```
+from sklearn.tree import DecisionTreeRegressor
+
+decision_tree_mse = {}
+
+for leafs in range(1,15):
+
+    reg = DecisionTreeRegressor(min_samples_leaf=leafs)
+
+    reg.fit(train[features], train['cnt'])
+
+    predictions = reg.predict(test[features])
+
+    mse = mean_squared_error(test['cnt'], predictions)
+    
+    decision_tree_mse[leafs] = mse
+
+for each in decision_tree_mse:
+    print("MSE using", each, "minimum leafs:", decision_tree_mse[each])
+```
+Hasilnya adalah sebagai berikut:
+
+![Hasil MSE Decision Tree](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseDecission.JPG)
+
+Algoritma Decision Tree tampaknya memiliki akurasi yang jauh lebih rendah dibandingkan Algoritma Linear Regression. Nilai erorr tampaknya diminimalkan dengan mengatur parameter `min_samples_leaf` ke angka 4 hingga 8. MSE terendah yang kita lihat adalah sekitar 2582, ketika menggunakan 4 minimum leafs.
+
+Hal ini kemungkinan karena memperhitungkan fitur-fitur yang non-linear, seperti kolom `season` dan `time_label` yang tadi dibuat.
+
+### Random Forest
+*Note : Untuk melihat penerapan kodenya dapat dilihat pada Bab Evaluasi
+
+![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseRandomForest.PNG)
+
+
+
+Dari perbandingan hasil MSE ini, dapat disimpulkan bahwa:
+Algoritma Random Forest menciptakan model dengan akurasi prediksi terbaik. Algoritma Random Forest mengembalikan MSE hanya 1724, turun dari 2582 menggunakan algoritma Decision Tree, dan 16185 menggunakan algoritma Linear Regression.
+
+Banyaknya peningkatan ini disebabkan oleh fakta bahwa Random Forest :
+1. Jauh lebih akurat daripada model sederhana seperti linear regression, dan
+2. Cenderung overfit daripada Decision Tree.
+
+Untuk meminimalkan overfitting lebih lanjut, kita dapat bereksperimen dengan parameter seperti maximum depth, dan minimum samples per leaf. Dalam kasus ini, kita menemukan bahwa MSE diminimalkan menggunakan 1 minimum leafs, dan max depth = 21.
 
 ## Evaluation
-Metrik yang saya gunakan pada prediksi ini adalah **Root Mean Squared Error (RMSE)** yang merupakan hasil dari akar kuadrat Mean Square Error (MSE). RMSE adalah cara standar untuk mengukur kesalahan suatu model dalam memprediksi data kuantitatif. RMSE didefinisikan dalam persamaan berikut
+Metrik yang saya gunakan pada prediksi ini adalah **Mean Squared Error (MSE)** yang merupakan hasil dari akar kuadrat Mean Square Error (MSE). RMSE adalah cara standar untuk mengukur kesalahan suatu model dalam memprediksi data kuantitatif. RMSE didefinisikan dalam persamaan berikut
 
-![Rumus RMSE](https://raw.githubusercontent.com/samuelpakpahan20/prediksihargamobil/master/images/RMSE.png)
+![Rumus MSE](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/rumusmse.JPEG)
 
 *Keterangan:*
 
@@ -92,7 +152,7 @@ Metrik yang saya gunakan pada prediksi ini adalah **Root Mean Squared Error (RMS
 
 *yi = nilai sebenarnya*
 
-*ŷ = nilai prediksi*
+*y_pred = nilai prediksi*
 
 
 Namun, sebelum menghitung nilai RMSE dalam model, kita perlu melakukan proses pelatihan dan validasi. Untuk kita perlu membuat sebuah fungsi `knn_train_test`. Fungsi ini memiliki 3 parameter, yaitu nama kolom latih, nama kolom target, nama objek Dataframe.
@@ -173,5 +233,6 @@ Hasilnya sebagai berikut.
 ![Plot Metrik](https://raw.githubusercontent.com/samuelpakpahan20/prediksihargamobil/master/images/visualisasi.png)
 
 Dari gambar di atas, terlihat bahwa, kolom `engine-size`, `width`, `horsepower`, `highway-mpg`, `curb-weight` memiliki nilai RMSE terendah. Kolom inilah yang akan di pilih sebagai fitur terbaik untuk melakukan prediksi harga mobil.
+![MSE Terendah](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/hasilrandomforest.JPG)
 
 **---Ini adalah bagian akhir laporan---**
