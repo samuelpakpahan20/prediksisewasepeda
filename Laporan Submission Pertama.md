@@ -181,7 +181,7 @@ for leafs in range(1,8):
 
     random_forest_mse[leafs] = pd.Series(mse_list)
 ```
-Gunakan kode berikut untuk melihat hasil prediksi menggunakan algoritma Random Forest.
+Gunakan kode berikut untuk melihat hasil prediksinya.
 ```
 random_forest_mse.columns.name = "Jumlah Min Leafs"
 
