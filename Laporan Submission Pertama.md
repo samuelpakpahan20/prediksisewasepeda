@@ -121,7 +121,7 @@ Hasilnya adalah sebagai berikut:
 
 ![Hasil MSE Decision Tree](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseDecision.png)
 
-Algoritma Decision Tree tampaknya memiliki akurasi yang jauh lebih rendah dibandingkan Algoritma Linear Regression. Nilai erorr tampaknya diminimalkan dengan mengatur parameter `min_samples_leaf` ke angka 4 hingga 8. MSE terendah yang kita lihat adalah sekitar 2582, ketika menggunakan 4 minimum leafs.
+Algoritma Decision Tree tampaknya memiliki akurasi yang jauh lebih rendah dibandingkan Algoritma Linear Regression. Nilai erorr tampaknya diminimalkan dengan mengatur parameter `min_samples_leaf` ke angka 9 hingga 11. MSE terendah yang kita lihat adalah sekitar 2450, ketika menggunakan 10 minimum leafs.
 
 Hal ini kemungkinan karena memperhitungkan fitur-fitur yang non-linear, seperti kolom `season` dan `time_label` yang tadi dibuat.
 
@@ -130,13 +130,13 @@ Hal ini kemungkinan karena memperhitungkan fitur-fitur yang non-linear, seperti 
 
 ![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseRandomForest.png)
 
-Dari perbandingan hasil MSE ini, dapat disimpulkan bahwa **Algoritma Random Forest menciptakan model dengan akurasi prediksi terbaik**. Algoritma Random Forest mengembalikan MSE hanya 1724, turun dari 2582 menggunakan algoritma Decision Tree, dan 16185 menggunakan algoritma Linear Regression.
+Dari perbandingan hasil MSE ini, dapat disimpulkan bahwa **Algoritma Random Forest menciptakan model dengan akurasi prediksi terbaik**. Algoritma Random Forest mengembalikan MSE hanya 1605, turun dari 2450 menggunakan algoritma Decision Tree, dan 15709 menggunakan algoritma Linear Regression.
 
 Banyaknya peningkatan ini disebabkan oleh fakta bahwa Random Forest :
 1. **Jauh lebih akurat** daripada model sederhana seperti linear regression, dan
 2. **Cenderung overfit** daripada Decision Tree.
 
-Untuk meminimalkan overfitting lebih lanjut, kita dapat bereksperimen dengan parameter seperti maximum depth, dan minimum samples per leaf. Dalam kasus ini, kita menemukan bahwa MSE Random Forest diminimalkan menggunakan 1 minimum leafs, dan max depth = 21.
+Untuk meminimalkan overfitting lebih lanjut, kita dapat bereksperimen dengan parameter seperti maximum depth, dan minimum samples per leaf. Dalam kasus ini, kita menemukan bahwa MSE Random Forest diminimalkan menggunakan 1 minimum leafs, dan max depth = 23.
 
 ## Evaluation
 Metrik yang saya gunakan pada prediksi ini adalah **Mean Squared Error (MSE)** yang menghitung selisih rata-rata nilai sebenarnya dengan nilai prediksi. MSE didefinisikan dalam persamaan berikut
@@ -204,6 +204,6 @@ Maka MSE terendahnya sebagai berikut.
 
 ![MSE Terendah](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/hasilrandomforest.JPG)
 
-Dari hasil diatas, dapat kita ketahui bahwa MSE yang relatif rendah adalah 1724 dan diamati ketika parameter `min_samples_leaf`= 1, dan parameter `max_depth`= 21.
+Dari hasil diatas, dapat kita ketahui bahwa MSE yang relatif rendah adalah 1605 dan diamati ketika parameter `min_samples_leaf`= 1, dan parameter `max_depth`= 23.
 
 **---Ini adalah bagian akhir laporan---**
