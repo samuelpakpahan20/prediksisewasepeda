@@ -119,7 +119,7 @@ for each in decision_tree_mse:
 ```
 Hasilnya adalah sebagai berikut:
 
-![Hasil MSE Decision Tree](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseDecission.JPG)
+![Hasil MSE Decision Tree](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseDecision.png)
 
 Algoritma Decision Tree tampaknya memiliki akurasi yang jauh lebih rendah dibandingkan Algoritma Linear Regression. Nilai erorr tampaknya diminimalkan dengan mengatur parameter `min_samples_leaf` ke angka 4 hingga 8. MSE terendah yang kita lihat adalah sekitar 2582, ketika menggunakan 4 minimum leafs.
 
@@ -128,23 +128,20 @@ Hal ini kemungkinan karena memperhitungkan fitur-fitur yang non-linear, seperti 
 ### Random Forest
 *Note : Untuk melihat penerapan kodenya dapat dilihat pada Bab Evaluasi
 
-![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseRandomForest.PNG)
+![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseRandomForest.png)
 
-
-
-Dari perbandingan hasil MSE ini, dapat disimpulkan bahwa:
-Algoritma Random Forest menciptakan model dengan akurasi prediksi terbaik. Algoritma Random Forest mengembalikan MSE hanya 1724, turun dari 2582 menggunakan algoritma Decision Tree, dan 16185 menggunakan algoritma Linear Regression.
+Dari perbandingan hasil MSE ini, dapat disimpulkan bahwa **Algoritma Random Forest menciptakan model dengan akurasi prediksi terbaik**. Algoritma Random Forest mengembalikan MSE hanya 1724, turun dari 2582 menggunakan algoritma Decision Tree, dan 16185 menggunakan algoritma Linear Regression.
 
 Banyaknya peningkatan ini disebabkan oleh fakta bahwa Random Forest :
-1. Jauh lebih akurat daripada model sederhana seperti linear regression, dan
-2. Cenderung overfit daripada Decision Tree.
+1. **Jauh lebih akurat** daripada model sederhana seperti linear regression, dan
+2. **Cenderung overfit** daripada Decision Tree.
 
-Untuk meminimalkan overfitting lebih lanjut, kita dapat bereksperimen dengan parameter seperti maximum depth, dan minimum samples per leaf. Dalam kasus ini, kita menemukan bahwa MSE diminimalkan menggunakan 1 minimum leafs, dan max depth = 21.
+Untuk meminimalkan overfitting lebih lanjut, kita dapat bereksperimen dengan parameter seperti maximum depth, dan minimum samples per leaf. Dalam kasus ini, kita menemukan bahwa MSE Random Forest diminimalkan menggunakan 1 minimum leafs, dan max depth = 21.
 
 ## Evaluation
-Metrik yang saya gunakan pada prediksi ini adalah **Mean Squared Error (MSE)** yang merupakan hasil dari akar kuadrat Mean Square Error (MSE). RMSE adalah cara standar untuk mengukur kesalahan suatu model dalam memprediksi data kuantitatif. RMSE didefinisikan dalam persamaan berikut
+Metrik yang saya gunakan pada prediksi ini adalah **Mean Squared Error (MSE)** yang menghitung selisih rata-rata nilai sebenarnya dengan nilai prediksi. MSE didefinisikan dalam persamaan berikut
 
-![Rumus MSE](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/rumusmse.JPEG)
+![Rumus MSE](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/rumusmse.jpeg)
 
 *Keterangan:*
 
@@ -154,85 +151,59 @@ Metrik yang saya gunakan pada prediksi ini adalah **Mean Squared Error (MSE)** y
 
 *y_pred = nilai prediksi*
 
-
-Namun, sebelum menghitung nilai RMSE dalam model, kita perlu melakukan proses pelatihan dan validasi. Untuk kita perlu membuat sebuah fungsi `knn_train_test`. Fungsi ini memiliki 3 parameter, yaitu nama kolom latih, nama kolom target, nama objek Dataframe.
-
-Fungsi ini akan melakukan tindakan seperti memisahkan dataset menjadi data latih dan test, membuat instance kelas KNeighborsRegressor, menyesuaikan dengan model pada data latih, kemudian menjalankan prediksi pada data test, menghitung RMSE, dan mengembalikannya.
-
-Berikut kode untuk fungsi tersebut:
+Setelah kita mendapatkan fitur-fitur terbaik dan telah melakukan modeling dengan menggunakan algoritma Linear Regression dan Decision Tree. Selanjutnya, kita akan mengevaluasi dengan menggunakan Algoritma Random Forest. Untuk menggunakan algoritma tersebut, masukkan kode berikut:
 ```
-from sklearn.metrics import mean_squared_error
-from sklearn.neighbors import KNeighborsRegressor
+from sklearn.ensemble import RandomForestRegressor
 
-def knn_train_test3(train_cols, target_col, df):
+# Dataframe berikut akan menyimpan nilai MSE pada berbagai 
+# variasi parameter min_samples_leaf dan max_depth.
+
+random_forest_mse = pd.DataFrame()
+
+for leafs in range(1,8):
     
-    np.random.seed(3)
+    mse_list = []
     
-    # Mengacak baris
-    shuffle = np.random.permutation(df.index)
-    df = df.reindex(shuffle)
-    
-    # Memisahkan dataset menjadi data latih dan test
-    train_df = df.iloc[:101]
-    test_df = df.iloc[101:]
-    
-    # Instance Kelas KNeighborsRegressor
-    knn = KNeighborsRegressor()
-    
-    # Model training
-    knn.fit(train_df[train_cols], train_df[target_col])
-    
-    # Hasil prediksi:
-    predictions = knn.predict(test_df[train_cols])
-    
-    # Menghitung RMSE:
-    rmse = (mean_squared_error(test_df[target_col], predictions))**0.5
-    
-    # Mengembalikan nilai RMSE
-    return rmse
+    for depth in range(10,30):
+        
+        # Membuat Instance Model
+        reg = RandomForestRegressor(min_samples_leaf = leafs, max_depth=depth)
+
+        # Melatih Model
+        reg.fit(train[features], train['cnt'])
+
+        # Menguji Model
+        predictions = reg.predict(test[features])
+
+        # Menghitung Error
+        mse = mean_squared_error(test['cnt'], predictions)
+        mse_list.append(mse)
+
+    random_forest_mse[leafs] = pd.Series(mse_list)
 ```
-
-Gunakan kode berikut untuk membuat daftar list setiap kolom dalam Dataframe.
+Gunakan kode berikut untuk melihat hasil prediksi menggunakan algoritma Random Forest.
 ```
-list_of_cols = normalized.columns.tolist()
+random_forest_mse.columns.name = "Jumlah Min Leafs"
 
-list_of_cols.remove('price')
+random_forest_mse.index = range(10,30)
 
-list_of_cols
+random_forest_mse.index.name = "Max Depth"
+
+random_forest_mse
 ```
+Hasilnya seperti berikut.
 
-Selanjutnya, uji RMSE untuk setiap kolom. Tuliskan kode berikut.
+![Hasil MSE Random Forest](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/mseRandomForest.png)
+
+Selanjutnya, kita akan tentukan di mana MSE terendahnya. Tuliskan kode berikut.
 ```
-rmse_dict = {}
-
-for each in list_of_cols:
-    rmse = knn_train_test(each, 'price', normalized)
-    rmse_dict[each] = rmse 
-    
-rmse_dict
+a, b = random_forest_mse.stack().idxmin()
+print(random_forest_mse.loc[[a], [b]])
 ```
+Maka MSE terendahnya sebagai berikut.
 
-Hasil uji RMSEnya sebagai berikut.
-
-![Hasil uji RMSE](https://raw.githubusercontent.com/samuelpakpahan20/prediksihargamobil/master/images/ujiRMSE.JPG)
-
-Untuk memudahkan, buat plot metrik tersebut dengan bar chart. Tuliskan kode di bawah ini:
-```
-import matplotlib.pyplot as plt
-import matplotlib.style as style
-%matplotlib inline
-
-rmse_series = pd.Series(rmse_dict)
-fig, ax = plt.subplots()
-rmse_series.sort_values(ascending = True).plot(kind='barh', ax=ax, zorder=3)
-ax.grid(zorder=0)
-```
-
-Hasilnya sebagai berikut.
-
-![Plot Metrik](https://raw.githubusercontent.com/samuelpakpahan20/prediksihargamobil/master/images/visualisasi.png)
-
-Dari gambar di atas, terlihat bahwa, kolom `engine-size`, `width`, `horsepower`, `highway-mpg`, `curb-weight` memiliki nilai RMSE terendah. Kolom inilah yang akan di pilih sebagai fitur terbaik untuk melakukan prediksi harga mobil.
 ![MSE Terendah](https://raw.githubusercontent.com/samuelpakpahan20/prediksisewasepeda/master/images/hasilrandomforest.JPG)
+
+Dari hasil diatas, dapat kita ketahui bahwa MSE yang relatif rendah adalah 1724 dan diamati ketika parameter `min_samples_leaf`= 1, dan parameter `max_depth`= 21.
 
 **---Ini adalah bagian akhir laporan---**
